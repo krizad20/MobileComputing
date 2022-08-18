@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+
+<body>
+    <div class="main">
+        <div class="input-group">
+            <div id="input-template" style="display: none;">
+                <label for="">รายได้(บาท)</label><br>
+                <input class="input-income" onblur="findTotal()" type="number">
+                <button class="add-income" onclick="addInput()">+</button>
+                <button class="del-income" onclick="delInput(event)">-</button>
+            </div>
+
+            <div class="input" id="input1">
+                <label for="">รายได้(บาท)</label><br>
+                <input class="input-income" onblur="findTotal()" type="number">
+                <button class="add-income" onclick="addInput()">+</button>
+                <button class="del-income" onclick="delInput(event)">-</button>
+            </div>
+
+        </div>
+        <div class="report">
+            <label for="">รายได้รวม(บาท)</label><br>
+            <input type="" id="sum-income" readonly><br>
+
+            <label for="">อัตราภาษี(%)</label><br>
+            <input type="" id="fee-rate" readonly><br>
+
+            <label for="">ภาษีที่ต้องจ่ายบาท)</label><br>
+            <input type="" id="total-fee" readonly>
+
+        </div>
+    </div>
+
+</body>
+<script>
+
+    function addInput() {
+        let inputLength = document.getElementsByClassName("input").length
+        console.log(inputLength)
+        if (inputLength >= 3) {
+            return
+        }
+        let inputGroup = document.querySelector(".input-group")
+
+        let inputTemplate = document.querySelector("#input-template")
+
+        let clonedInput = inputTemplate.cloneNode(true);
+        clonedInput.id = "input" + (inputLength + 1)
+        clonedInput.className = "input"
+        clonedInput.style.display = "block"
+
+        console.log(clonedInput)
+        inputGroup.append(clonedInput)
+
+    }
+
+    function delInput(evt) {
+        let parentNode = evt.currentTarget.parentNode
+
+        if (parentNode.id != "input1") {
+            evt.currentTarget.parentNode.remove()
+
+        }
+    }
+
+    function findTotal() {
+        var arr = document.getElementsByClassName("input-income")
+        var tot = 0;
+        for (var i = 0; i < arr.length; i++) {
+            if (parseInt(arr[i].value))
+                tot += parseInt(arr[i].value);
+        }
+        document.getElementById('sum-income').value = tot.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
+
+        let feeRate = 0
+
+        let rate1 = 150000
+        let rate1Fee = 0
+
+        let rate2 = 300000
+        let rate2Fee = 0.05
+
+        let rate3 = 500000
+        let rate3Fee = 0.1
+
+        let rate4 = 750000
+        let rate4Fee = 0.15
+
+        let rate5 = 1000000
+        let rate5Fee = 0.2
+
+        let rate6 = 2000000
+        let rate6Fee = 0.25
+
+        let rate7 = 5000000
+        let rate7Fee = 0.3
+
+        let rate8Fee = 0.35
+
+        if (tot <= rate1) {
+            document.getElementById('fee-rate').value = rate1Fee * 100;
+            feeRate = rate1Fee;
+        }
+        else if (tot <= rate2) {
+            document.getElementById('fee-rate').value = rate2Fee * 100;
+            feeRate = rate2Fee;
+        }
+        else if (tot <= rate3) {
+            document.getElementById('fee-rate').value = rate3Fee * 100;
+            feeRate = rate3Fee;
+        }
+        else if (tot <= rate4) {
+            document.getElementById('fee-rate').value = rate4Fee * 100;
+            feeRate = rate4Fee;
+        }
+        else if (tot <= rate5) {
+            document.getElementById('fee-rate').value = rate5Fee * 100;
+            feeRate = rate5Fee;
+        }
+        else if (tot <= rate6) {
+            document.getElementById('fee-rate').value = rate6Fee * 100;
+            feeRate = rate6Fee;
+        }
+        else if (tot <= rate7) {
+            document.getElementById('fee-rate').value = rate7Fee * 100;
+            feeRate = rate7Fee;
+        }
+        else {
+            document.getElementById('fee-rate').value = rate8Fee * 100;
+            feeRate = rate8Fee;
+        }
+
+
+        document.getElementById('total-fee').value = (feeRate * tot).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+</script>
+
+</html>

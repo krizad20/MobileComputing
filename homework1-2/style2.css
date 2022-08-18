@@ -1,0 +1,110 @@
+body {
+    font-family: 'Sarabun';
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+header {
+    text-align: center;
+    padding: 1.25rem;
+    color: rgb(0, 0, 0);
+    background-color: rgb(244, 244, 244);
+    border-bottom: 1.5px solid rgb(0, 0, 0);
+}
+
+main {
+    display: flex;
+    flex: 1;
+    overflow: auto;
+
+}
+
+i.fa-solid.fa-moon{
+    display: block;
+}
+
+i.fa-solid.fa-sun{
+    display: none;
+}
+
+.tab {
+    display: flex;
+    flex-direction: column;
+    padding: 2.75rem 1rem;
+    background-color: rgb(244, 244, 244);
+    border-right: 1.5px solid rgb(0, 0, 0);
+
+}
+
+.tab button {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Sarabun';
+    font-size: 1rem;
+}
+
+/* .tab button:hover {
+    text-decoration: underline;
+} */
+
+.tabcontent {
+    /* display: none; */
+    padding: 1.25rem 3rem;
+    width: 100%;
+    max-width: 100%;
+    text-align: justify;
+    overflow: auto;
+
+}
+
+/* .tabcontent.active {
+    display: block;
+}
+ */
+
+footer{
+    /* position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0; */
+    text-align: center;
+    padding: 0.75rem;
+    color: rgb(0, 0, 0);
+    background-color: rgb(244, 244, 244);
+    border-top: 1.5px solid rgb(0, 0, 0);
+    
+}
+
+
+footer p {
+    margin: 0.5rem;
+}
+
+footer h4 {
+    margin-top: 0;
+}
+
+@media screen and (max-width: 800px){
+    main {
+        flex-direction: column;
+    }
+
+    .tab {
+        flex-direction: row;
+        border-right: none;
+        border-bottom: 1.5px solid rgb(0, 0, 0);
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .tab button {
+        width: fit-content;
+    }
+}
