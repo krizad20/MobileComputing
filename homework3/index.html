@@ -6,38 +6,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 
 
 <body>
-    <div class="main">
-        <div class="input-group">
-            <div id="input-template" style="display: none;">
-                <label for="">รายได้(บาท)</label><br>
-                <input class="input-income" onblur="findTotal()" type="number">
-                <button class="add-income" onclick="addInput()">+</button>
-                <button class="del-income" onclick="delInput(event)">-</button>
+    <div class="container-md mt-5">
+        <h4 class="text-center "> โปรแกรมคำนวณภาษีรายได้บุคคลธรรมดา</h4>
+
+        <div class="input-groups row">
+
+            <div class="row d-flex align-items-end d-none" id="input-template">
+                <div class="col-10">
+                    <label for="" class="form-label">รายได้(บาท)</label>
+                    <input type="number" class="form-control input-income" onblur="findTotal()"
+                        placeholder="กรอกรายได้">
+                </div>
+                <div class="col-2 d-flex" style="height:fit-content;">
+                    <button type="submit" class="add-income btn btn-primary me-2" onclick="addInput()">+</button>
+                    <button type="submit" class="del-income btn btn-primary me-2" onclick="delInput(event)">-</button>
+                </div>
+
             </div>
 
-            <div class="input" id="input1">
-                <label for="">รายได้(บาท)</label><br>
-                <input class="input-income" onblur="findTotal()" type="number">
-                <button class="add-income" onclick="addInput()">+</button>
-                <button class="del-income" onclick="delInput(event)">-</button>
-            </div>
 
         </div>
-        <div class="report">
-            <label for="">รายได้รวม(บาท)</label><br>
-            <input type="" id="sum-income" readonly><br>
+        <div class="report  row">
+            <div class="row d-flex align-items-end">
+                <div class="col-10">
+                    <label for="" class="form-label">รายได้รวม(บาท)</label>
+                    <input type="text" class="form-control" id="sum-income" readonly>
+                </div>
 
-            <label for="">อัตราภาษี(%)</label><br>
-            <input type="" id="fee-rate" readonly><br>
+            </div>
+            <div class="row d-flex align-items-end">
+                <div class="col-10">
+                    <label for="" class="form-label">อัตราภาษี(%)</label>
+                    <input type="text" class="form-control" id="fee-rate" readonly>
+                </div>
 
-            <label for="">ภาษีที่ต้องจ่ายบาท)</label><br>
-            <input type="" id="total-fee" readonly>
+            </div>
 
+            <div class="row d-flex align-items-end">
+                <div class="col-10">
+                    <label for="" class="form-label">ภาษีที่ต้องจ่าย(บาท)</label>
+                    <input type="text" class="form-control" id="total-fee" readonly>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -46,18 +65,16 @@
 
     function addInput() {
         let inputLength = document.getElementsByClassName("input").length
-        console.log(inputLength)
         if (inputLength >= 3) {
             return
         }
-        let inputGroup = document.querySelector(".input-group")
+        let inputGroup = document.querySelector(".input-groups")
 
         let inputTemplate = document.querySelector("#input-template")
 
         let clonedInput = inputTemplate.cloneNode(true);
         clonedInput.id = "input" + (inputLength + 1)
-        clonedInput.className = "input"
-        clonedInput.style.display = "block"
+        clonedInput.className = "row d-flex align-items-end input"
 
         console.log(clonedInput)
         inputGroup.append(clonedInput)
@@ -65,12 +82,12 @@
     }
 
     function delInput(evt) {
-        let parentNode = evt.currentTarget.parentNode
-
-        if (parentNode.id != "input1") {
-            evt.currentTarget.parentNode.remove()
-
+        let parentNode = evt.currentTarget.parentNode.parentNode
+        let inputLength = document.getElementsByClassName("input").length
+        if (inputLength == 1) {
+            return
         }
+        parentNode.remove()
     }
 
     function findTotal() {
@@ -143,6 +160,8 @@
 
         document.getElementById('total-fee').value = (feeRate * tot).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+
+    addInput()
 </script>
 
 </html>
